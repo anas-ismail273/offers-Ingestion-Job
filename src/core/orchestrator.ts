@@ -7,7 +7,7 @@ import { logger } from '../shared/logger';
 /**
  * Orchestrates the offer ingestion process.
  * Coordinates fetching, transforming, validating, and persisting offers.
- * Processes providers sequentially — one at a time, no concurrency.
+ * Processes providers concurrently using Promise.all() for faster execution.
  */
 export class IngestionOrchestrator {
   private providers: IOfferProvider[];
@@ -43,10 +43,13 @@ export class IngestionOrchestrator {
       durationMs: 0,
     };
 
-    // Process providers sequentially
-    for (const provider of this.providers) {
-      const result = await this.processProvider(provider);
+    // Process all providers concurrently
+    const results = await Promise.all(
+      this.providers.map((provider) => this.processProvider(provider))
+    );
 
+    // Aggregate results
+    for (const result of results) {
       if (result.success) {
         summary.successfulProviders++;
         summary.totalOffersFetched += result.totalFetched;
