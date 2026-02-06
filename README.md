@@ -19,9 +19,6 @@ A one-time CLI job that extracts offers from multiple external offer networks, v
 ### Using Shell Script (Recommended)
 
 ```bash
-# Copy environment template and fill in values
-cp .env.example .env
-
 # Build and run everything
 ./run.sh
 ```
