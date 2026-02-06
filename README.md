@@ -44,10 +44,8 @@ Provider API → fetch() → raw JSON → transform() → OfferDTO[] → validat
                                                               console.warn → skip
 ```
 
-### Architecture Diagram (ASCII)
+### Architecture Diagram
 ![img](docs/mermaidjs.png)
-
-### Architecture Diagram (Mermaid)
 
 ## Project Structure
 
